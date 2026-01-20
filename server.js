@@ -18,6 +18,19 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Раздача статических файлов
 
+app.use(express.static(path.join(__dirname, 'public'))); // Раздача статических файлов
+
+// Явные роуты для PWA
+app.get('/manifest.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'manifest.json'));
+});
+
+app.get('/sw.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'sw.js'));
+});
+
+// Инициализация файла данных, если его нет
+
 // Инициализация файла данных, если его нет
 if (!fs.existsSync(DATA_FILE)) {
   const dir = path.dirname(DATA_FILE);
