@@ -10,7 +10,11 @@ const PORT = process.env.PORT || 3001; // Динамический порт дл
 const DATA_FILE = path.join(__dirname, 'data.json'); // Упрощаем путь для хостинга
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: '*', // Разрешаем все источники (включая Electron)
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Раздача статических файлов
 
